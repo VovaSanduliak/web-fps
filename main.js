@@ -13,8 +13,7 @@ const renderer = createRenderer();
 const floor = createFloor();
 scene.add(floor);
 
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(10, 10, 10).normalize();
+const light = new THREE.AmbientLight(0xffffff);
 scene.add(light);
 
 function animate() {

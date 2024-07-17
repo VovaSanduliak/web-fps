@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 const createFloor = () => {
   const geometry = new THREE.PlaneGeometry(1000, 1000);
-  const material = new THREE.MeshPhongMaterial({
+  const material = new THREE.MeshBasicMaterial({
     color: 0x808080,
     side: THREE.FrontSide,
   });
