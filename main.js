@@ -13,8 +13,12 @@ const renderer = createRenderer();
 const floor = createFloor();
 scene.add(floor);
 
-const light = new THREE.AmbientLight(0xffffff);
-scene.add(light);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(10, 10, 10);
+scene.add(directionalLight);
 
 function animate() {
   requestAnimationFrame(animate);
