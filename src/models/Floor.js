@@ -31,7 +31,7 @@ const createFloor = () => {
   floor.receiveShadow = true;
 
   floor.rotation.x = -Math.PI / 2;
-  floor.position.y = -1;
+  // floor.position.y = -1;
 
   return floor;
 };
