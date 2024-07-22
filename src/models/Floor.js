@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import floorTexture from '../textures/Plank/plank.jpg';
+import floorTexture from '/textures/Plank/plank.jpg';
 
 const createFloor = () => {
   const floorGeometry = new THREE.PlaneGeometry(500, 500, 256, 256);

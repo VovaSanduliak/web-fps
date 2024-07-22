@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-const skyBoxPath = 'src/textures/Clear/';
+const skyBoxPath = '/textures/Clear/';
 const format = '.png';
 
 const textureImages = [
