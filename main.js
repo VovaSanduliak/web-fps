@@ -23,7 +23,7 @@ scene.add(floor, ambientLight, directionalLight);
 const orbitControls = new OrbitControls(camera, renderer.domElement);
 orbitControls.enableDamping = true;
 orbitControls.minDistance = 5;
-orbitControls.maxDistance = 15;
+orbitControls.maxDistance = 7;
 orbitControls.enablePan = false;
 orbitControls.maxPolarAngle = Math.PI / 2 - 0.05;
 orbitControls.update();
@@ -31,7 +31,7 @@ orbitControls.update();
 
 // MODEL WITH ANIMATIONS
 let characterControls = null;
-new GLTFLoader().load('./src/Clown.glb', (gltf) => {
+new GLTFLoader().load('Steve.glb', (gltf) => {
   const model = gltf.scene;
   model.traverse((object) => {
     if (object.isMesh) object.castShadow = true;
