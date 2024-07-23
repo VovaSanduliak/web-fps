@@ -1,14 +1,15 @@
 import * as THREE from 'three';
+import { GLTFLoader, OrbitControls } from 'three/examples/jsm/Addons.js';
+import { CharacterControls } from './src/CharacterControls';
+
 import { createScene } from './src/models/Scene';
 import { createCamera } from './src/models/Camera';
 import { createRenderer } from './src/models/Renderer';
 
-import './style.css';
 import { createFloor } from './src/models/Floor';
 import { createAmbientLight, createDirectionalLight } from './src/models/Light';
-import { GLTFLoader, OrbitControls } from 'three/examples/jsm/Addons.js';
-import { KeyDisplay } from './src/utils/KeyDisplay';
-import { CharacterControls } from './src/CharacterControls';
+
+import './style.css';
 
 const scene = createScene();
 const camera = createCamera();
@@ -32,6 +33,7 @@ orbitControls.update();
 // MODEL WITH ANIMATIONS
 let characterControls = null;
 new GLTFLoader().load('Steve.glb', (gltf) => {
+  console.log(gltf);
   const model = gltf.scene;
   model.traverse((object) => {
     if (object.isMesh) object.castShadow = true;
@@ -59,11 +61,10 @@ new GLTFLoader().load('Steve.glb', (gltf) => {
 
 // CONTROL KEYS
 const keysPressed = {};
-const keyDisplayQueue = new KeyDisplay();
+
 document.addEventListener(
   'keydown',
   (event) => {
-    keyDisplayQueue.down(event.key);
     if (event.shiftKey && characterControls) {
       characterControls.switchRunToggle();
     } else {
@@ -75,7 +76,6 @@ document.addEventListener(
 document.addEventListener(
   'keyup',
   (event) => {
-    keyDisplayQueue.up(event.key);
     keysPressed[event.key.toLocaleLowerCase()] = false;
   },
   false

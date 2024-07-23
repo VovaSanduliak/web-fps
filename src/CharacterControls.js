@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { A, D, DIRECTIONS, S, W } from './utils/Directions';
+import { KEYS, DIRECTIONS } from './utils/Constants';
 
 class CharacterControls {
   toggleRun = true;
@@ -13,8 +13,8 @@ class CharacterControls {
 
   // constants
   fadeDuration = 0.2;
-  runVelocity = 5;
   walkVelocity = 2;
+  runVelocity = 5;
 
   constructor(
     model,
@@ -117,24 +117,24 @@ class CharacterControls {
   _directionOffset(keysPressed) {
     var directionOffset = 0; // w
 
-    if (keysPressed[W]) {
-      if (keysPressed[A]) {
+    if (keysPressed[KEYS.W]) {
+      if (keysPressed[KEYS.A]) {
         directionOffset = Math.PI / 4; // w+a
-      } else if (keysPressed[D]) {
+      } else if (keysPressed[KEYS.D]) {
         directionOffset = -Math.PI / 4; // w+d
       }
-    } else if (keysPressed[S]) {
-      if (keysPressed[A]) {
+    } else if (keysPressed[KEYS.S]) {
+      if (keysPressed[KEYS.A]) {
         directionOffset = Math.PI / 4 + Math.PI / 2; // s+a
-      } else if (keysPressed[D]) {
+      } else if (keysPressed[KEYS.D]) {
         directionOffset = -Math.PI / 4 - Math.PI / 2; // s+d
       } else {
         directionOffset = Math.PI; // s
       }
-    } else if (keysPressed[A]) {
-      directionOffset = Math.PI / 2; // a
-    } else if (keysPressed[D]) {
-      directionOffset = -Math.PI / 2; // d
+    } else if (keysPressed[KEYS.A]) {
+      directionOffset = Math.PI / 2;
+    } else if (keysPressed[KEYS.D]) {
+      directionOffset = -Math.PI / 2;
     }
 
     return directionOffset;
