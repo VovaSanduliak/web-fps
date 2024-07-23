@@ -6,3 +6,9 @@ export const KEYS = {
 };
 
 export const DIRECTIONS = [KEYS.W, KEYS.A, KEYS.S, KEYS.D];
+
+export const UNIT_ACTIONS = {
+  Idle: 'Idle',
+  Walk: 'Walk',
+  Run: 'Run',
+};

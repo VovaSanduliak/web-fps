@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { KEYS, DIRECTIONS } from './utils/Constants';
+import { KEYS, DIRECTIONS, UNIT_ACTIONS } from './utils/Constants';
 
 class CharacterControls {
   toggleRun = true;
@@ -48,11 +48,11 @@ class CharacterControls {
 
     let play = '';
     if (directionPressed && this.toggleRun) {
-      play = 'Run';
+      play = UNIT_ACTIONS.Run;
     } else if (directionPressed) {
-      play = 'Walk';
+      play = UNIT_ACTIONS.Walk;
     } else {
-      play = 'Idle';
+      play = UNIT_ACTIONS.Idle;
     }
 
     if (this.currentAction != play) {
@@ -67,7 +67,10 @@ class CharacterControls {
 
     this.mixer.update(delta);
 
-    if (this.currentAction == 'Run' || this.currentAction == 'Walk') {
+    if (
+      this.currentAction == UNIT_ACTIONS.Run ||
+      this.currentAction == UNIT_ACTIONS.Walk
+    ) {
       // calculate towards camera direction
       let angleYCameraDirection = Math.atan2(
         this.camera.position.x - this.model.position.x,
@@ -90,7 +93,9 @@ class CharacterControls {
 
       // run/walk velocity
       const velocity =
-        this.currentAction == 'Run' ? this.runVelocity : this.walkVelocity;
+        this.currentAction == UNIT_ACTIONS.Run
+          ? this.runVelocity
+          : this.walkVelocity;
 
       // move model & camera
       const moveX = this.walkDirection.x * velocity * delta;

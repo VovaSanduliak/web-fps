@@ -27,11 +27,10 @@ const createFloor = () => {
     side: THREE.FrontSide,
     map: texture,
   });
+
   const floor = new THREE.Mesh(floorGeometry, floorMaterial);
   floor.receiveShadow = true;
-
   floor.rotation.x = -Math.PI / 2;
-  // floor.position.y = -1;
 
   return floor;
 };
