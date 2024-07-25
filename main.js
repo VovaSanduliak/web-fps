@@ -2,12 +2,12 @@ import * as THREE from 'three';
 import { GLTFLoader, OrbitControls } from 'three/examples/jsm/Addons.js';
 import { CharacterControls } from './src/CharacterControls';
 
-import { createScene } from './src/models/Scene';
-import { createCamera } from './src/models/Camera';
-import { createRenderer } from './src/models/Renderer';
+import { createScene } from './src/Models/Scene';
+import { createCamera } from './src/Models/Camera';
+import { createRenderer } from './src/Models/Renderer';
 
-import { createFloor } from './src/models/Floor';
-import { createAmbientLight, createDirectionalLight } from './src/models/Light';
+import { createFloor } from './src/Models/Floor';
+import { createAmbientLight, createDirectionalLight } from './src/Models/Light';
 
 import './style.css';
 
