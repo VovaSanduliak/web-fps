@@ -1,11 +1,6 @@
-export const KEYS = {
-  W: 'w',
-  A: 'a',
-  S: 's',
-  D: 'd',
-};
+import { Keys } from '../Constants/Keys';
 
-export const DIRECTIONS = [KEYS.W, KEYS.A, KEYS.S, KEYS.D];
+export const DIRECTIONS = [Keys.W, Keys.A, Keys.S, Keys.D];
 
 export const UNIT_ACTIONS = {
   Idle: 'Idle',
