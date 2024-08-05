@@ -1,29 +1,31 @@
-import * as THREE from 'three';
-import { createScene } from './src/models/Scene';
-import { createCamera } from './src/models/Camera';
-import { createRenderer } from './src/models/Renderer';
+import { Clock } from 'three';
+import { createScene } from './src/Views/Scene';
+import { createRenderer } from './src/Views/Renderer';
+import { createFloor } from './src/Views/Floor';
+import { createAmbientLight, createDirectionalLight } from './src/Views/Lights';
 
+import Player from './src/Views/Player';
 import './style.css';
-import { createFloor } from './src/models/Floor';
 
 const scene = createScene();
-const camera = createCamera();
 const renderer = createRenderer();
 
 const floor = createFloor();
-scene.add(floor);
+const ambientLight = createAmbientLight();
+const directionalLight = createDirectionalLight();
+scene.add(floor, ambientLight, directionalLight);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
+const player = new Player();
+scene.add(player);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(10, 10, 10);
-scene.add(directionalLight);
+const clock = new Clock();
+const animate = () => {
+  let deltaTime = clock.getDelta();
+  player.update(deltaTime);
 
-function animate() {
   requestAnimationFrame(animate);
 
-  renderer.render(scene, camera);
-}
+  renderer.render(scene, player.camera);
+};
 
 animate();
