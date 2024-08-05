@@ -1,8 +1,8 @@
 import { Clock } from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
+import Renderer from './src/Views/Renderer';
 import { createScene } from './src/Views/Scene';
-import { createRenderer } from './src/Views/Renderer';
 import { createFloor } from './src/Views/Floor';
 import { createAmbientLight, createDirectionalLight } from './src/Views/Lights';
 
@@ -13,7 +13,7 @@ const stats = Stats();
 document.body.appendChild(stats.dom);
 
 const scene = createScene();
-const renderer = createRenderer();
+const renderer = new Renderer();
 
 const floor = createFloor();
 const ambientLight = createAmbientLight();
