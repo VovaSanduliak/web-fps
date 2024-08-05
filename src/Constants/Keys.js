@@ -3,4 +3,8 @@ export const Keys = {
   D: 'KeyD',
   W: 'KeyW',
   S: 'KeyS',
+  ArrowLeft: 'ArrowLeft',
+  ArrowRight: 'ArrowRight',
+  ArrowUp: 'ArrowUp',
+  ArrowDown: 'ArrowDown',
 };

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import floorTexture from '/textures/Plank/plank.jpg';
 
 const createFloor = () => {
-  const floorGeometry = new THREE.PlaneGeometry(500, 500, 256, 256);
+  const floorGeometry = new THREE.PlaneGeometry(50, 50, 256, 256);
   floorGeometry.attributes.uv2 = floorGeometry.attributes.uv;
 
   const textureLoader = new THREE.TextureLoader();
@@ -20,7 +20,7 @@ const createFloor = () => {
   texture.magFilter = THREE.LinearFilter;
 
   const floorMaterial = new THREE.MeshStandardMaterial({
-    // color: '#777777',
+    // color: '#ffaaff',
     metalness: 0.2,
     roughness: 0.6,
     envMapIntensity: 0.5,

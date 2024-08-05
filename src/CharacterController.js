@@ -1,7 +1,8 @@
 import * as THREE from 'three';
-import { KEYS, DIRECTIONS, UNIT_ACTIONS } from './utils/Constants';
+import { DIRECTIONS, UNIT_ACTIONS } from './utils/Constants';
+import { Keys } from './Constants/Keys';
 
-class CharacterControls {
+class PlayerController extends THREE.Object3D {
   toggleRun = true;
   currentAction = '';
 
@@ -20,7 +21,7 @@ class CharacterControls {
     model,
     mixer,
     animationsMap,
-    orbitControl,
+
     camera,
     currentAction
   ) {
@@ -28,6 +29,7 @@ class CharacterControls {
     this.mixer = mixer;
     this.animationsMap = animationsMap;
     this.currentAction = currentAction;
+    this.keysPressed = {};
 
     this.animationsMap.forEach((value, key) => {
       if (key == currentAction) {
@@ -35,16 +37,20 @@ class CharacterControls {
       }
     });
 
-    this.orbitControl = orbitControl;
     this.camera = camera;
+
+    document.addEventListener('keydown', (event) => this._handleKeyDown(event));
+    document.addEventListener('keyup', (event) => this._handleKeyUp(event));
   }
 
   switchRunToggle() {
     this.toggleRun = !this.toggleRun;
   }
 
-  update(delta, keysPressed) {
-    const directionPressed = DIRECTIONS.some((key) => keysPressed[key] == true);
+  update(delta) {
+    const directionPressed = DIRECTIONS.some(
+      (key) => this.keysPressed[key] == true
+    );
 
     let play = '';
     if (directionPressed && this.toggleRun) {
@@ -76,7 +82,7 @@ class CharacterControls {
         this.camera.position.x - this.model.position.x,
         this.camera.position.z - this.model.position.z
       );
-      let directionOffset = this._directionOffset(keysPressed);
+      let directionOffset = this._directionOffset(this.keysPressed);
 
       // rotate model
       this.rotateQuaternion.setFromAxisAngle(
@@ -116,34 +122,45 @@ class CharacterControls {
     this.cameraTarget.x = this.model.position.x;
     this.cameraTarget.y = this.model.position.y + 1;
     this.cameraTarget.z = this.model.position.z;
-    this.orbitControl.target = this.cameraTarget;
   }
 
-  _directionOffset(keysPressed) {
+  _directionOffset() {
     var directionOffset = 0; // w
 
-    if (keysPressed[KEYS.W]) {
-      if (keysPressed[KEYS.A]) {
+    if (this.keysPressed[Keys.W]) {
+      if (this.keysPressed[Keys.A]) {
         directionOffset = Math.PI / 4; // w+a
-      } else if (keysPressed[KEYS.D]) {
+      } else if (this.keysPressed[Keys.D]) {
         directionOffset = -Math.PI / 4; // w+d
       }
-    } else if (keysPressed[KEYS.S]) {
-      if (keysPressed[KEYS.A]) {
+    } else if (this.keysPressed[Keys.S]) {
+      if (this.keysPressed[Keys.A]) {
         directionOffset = Math.PI / 4 + Math.PI / 2; // s+a
-      } else if (keysPressed[KEYS.D]) {
+      } else if (this.keysPressed[Keys.D]) {
         directionOffset = -Math.PI / 4 - Math.PI / 2; // s+d
       } else {
         directionOffset = Math.PI; // s
       }
-    } else if (keysPressed[KEYS.A]) {
+    } else if (this.keysPressed[Keys.A]) {
       directionOffset = Math.PI / 2;
-    } else if (keysPressed[KEYS.D]) {
+    } else if (this.keysPressed[Keys.D]) {
       directionOffset = -Math.PI / 2;
     }
 
     return directionOffset;
   }
+
+  _handleKeyDown = (event) => {
+    if (event.shiftKey) {
+      this.switchRunToggle();
+    } else {
+      this.keysPressed[event.code] = true;
+    }
+  };
+
+  _handleKeyUp = (event) => {
+    this.keysPressed[event.code] = false;
+  };
 }
 
-export { CharacterControls };
+export { PlayerController };
