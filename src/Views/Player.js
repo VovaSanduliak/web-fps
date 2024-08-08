@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import * as CANNON from 'cannon-es';
+
 import { UNIT_ACTIONS } from '../Enums/UnitActions';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import FirstPersonCamera from './FirstPersonCamera';
@@ -13,6 +15,9 @@ export default class Player extends THREE.Object3D {
   animationsMap = new Map();
   controller = null;
   currActionName = UNIT_ACTIONS.Idle;
+  physicsComponent = new CANNON.Body({
+    shape: new CANNON.Sphere(0.5),
+  });
 
   jawObject = null;
 
@@ -64,6 +69,8 @@ export default class Player extends THREE.Object3D {
   update = (deltaTime) => {
     this.controller && this.controller.update(deltaTime);
     this.animationMixer && this.animationMixer.update(deltaTime);
+
+    this.physicsComponent.position.copy(this.position);
   };
 
   move = (direction) => {

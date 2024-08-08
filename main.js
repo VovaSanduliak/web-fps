@@ -1,36 +1,44 @@
-import { Clock } from 'three';
+import { Clock, PerspectiveCamera } from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import CannonDebugger from 'cannon-es-debugger';
 
 import Renderer from './src/Views/Renderer';
-import { createScene } from './src/Views/Scene';
-import { createFloor } from './src/Views/Floor';
-import { createAmbientLight, createDirectionalLight } from './src/Views/Lights';
 
+import World from './src/Views/World';
 import Player from './src/Views/Player';
+import Ball from './src/Views/Ball';
+
 import './style.css';
 
 const stats = Stats();
 document.body.appendChild(stats.dom);
 
-const scene = createScene();
 const renderer = new Renderer();
 
-const floor = createFloor();
-const ambientLight = createAmbientLight();
-const directionalLight = createDirectionalLight();
-scene.add(floor, ambientLight, directionalLight);
+const world = new World();
+const player = world.add(new Player());
+const ball = world.add(new Ball());
 
-const player = new Player();
-scene.add(player);
+player.translateZ(5);
 
+const cannonDebugger = new CannonDebugger(world.scene, world.physicsWorld, {});
+
+//////
 const clock = new Clock();
 const animate = () => {
   let deltaTime = clock.getDelta();
-  player.update(deltaTime);
 
-  requestAnimationFrame(animate);
   stats.update();
-  renderer.render(scene, player.camera);
+
+  world.physicsWorld.step(deltaTime);
+  world.update(deltaTime);
+  cannonDebugger.update();
+
+  // const testCamera = new PerspectiveCamera(75, 1, 0.1, 2000);
+  // player.add(testCamera);
+  // testCamera.translateZ(3);
+  renderer.render(world.scene, player.camera);
+  requestAnimationFrame(animate);
 };
 
 animate();

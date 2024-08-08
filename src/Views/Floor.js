@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as CANNON from 'cannon-es';
 import floorTexture from '../../assets/textures/Plank/plank.jpg';
 
 const createFloor = () => {
@@ -32,7 +33,15 @@ const createFloor = () => {
   floor.receiveShadow = true;
   floor.rotation.x = -Math.PI / 2;
 
-  floor.position.y -= 1;
+  // floor.position.y -= 1;
+
+  // add ground collision
+  floor.physicsComponent = new CANNON.Body({
+    type: CANNON.Body.STATIC,
+    shape: new CANNON.Plane(),
+  });
+
+  floor.physicsComponent.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 
   return floor;
 };
